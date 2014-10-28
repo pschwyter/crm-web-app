@@ -1,4 +1,5 @@
 require 'sinatra'
+require './contacts'
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
