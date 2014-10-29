@@ -27,4 +27,9 @@ class Rolodex
 		@selected_contact.email = email
 		@selected_contact.note = note
 	end
+
+	def delete_contact(contact)
+		id = contact.id
+		@contacts.delete_if { |contact| contact.id == id}
+	end
 end

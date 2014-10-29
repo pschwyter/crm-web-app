@@ -30,8 +30,9 @@ end
 get "/contacts/delete/:id" do
 	id = params[:id].to_i
 	contact_to_delete = $rolodex.find_contact(id)[0]
-	$rolodex.set_contact(contact_to_delete)
-	erb :delete_contact
+	$rolodex.delete_contact(contact_to_delete)
+	#erb :delete_contact
+	redirect to('/contacts')
 end
 
 post "/contacts" do
@@ -46,12 +47,6 @@ post "/contacts_edit" do
 	$rolodex.edit_contact(params[:first_name],params[:last_name],params[:email],params[:note])
 	redirect to('/contacts')
 end
-
-# delete "/contacts" do
-# 	puts params
-# 	contact_to_delete = $rolodex.find_contact(params)
-# end
-
 
 
 #Only for debugging
