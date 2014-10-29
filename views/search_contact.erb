@@ -1,0 +1,28 @@
+<% if $rolodex.selected_multiple_contacts.class == Array %>
+	<table class="table">
+		<thead>
+			<th></th>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Note</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<% $rolodex.selected_multiple_contacts.each do |contact| %>
+			<tr>
+				<td><a href="/contacts/edit/<%= contact.id %>">Edit</a></td>
+				<td><%= contact.id %></td>
+				<td><%= contact.first_name %></td>
+				<td><%= contact.last_name %></td>
+				<td><%= contact.email %></td>
+				<td><%= contact.note %></td>
+				<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<a href="/">Return to Main Menu</a>

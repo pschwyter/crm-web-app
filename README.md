@@ -8,3 +8,5 @@ To run the app, pull the repository and run crm.rb, sinatra will start the serve
 ##### Features to Add #######
 
 - Search for contacts by attribute
+
+- Require confirmation for contact deletion

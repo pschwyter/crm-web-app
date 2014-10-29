@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/reloader" if development?
 require './contacts.rb'
 require './rolodex.rb'
 
@@ -6,32 +7,48 @@ $rolodex = Rolodex.new
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
+	params[:page_name] = "Main Menu"
 	erb :index
 end
 
 get "/contacts" do
-  erb :contacts
+	params[:page_name] = "Contacts"
+	erb :contacts
 end
 
 get "/contacts/new" do
+	params[:page_name] = "Create new contact"
 	erb :new_contact
+end
+
+get "/search" do
+	params[:page_name] = "Search for Contact"
+	erb :search_contact
+end
+
+post "/search" do
+	contact_method = params[:contact_method]
+	attribute = params[:attribute]
+	contacts_to_display = $rolodex.find_contacts(attribute,contact_method)
+	$rolodex.set_multiple_contacts(contacts_to_display)
+	erb :search_contact
 end
 
 get "/contacts/edit/:id" do
 	id = params[:id].to_i
 	puts params
-	contact_to_edit = $rolodex.find_contact(id)[0]
+	contact_to_edit = $rolodex.find_contact(id)
 	puts contact_to_edit
 	$rolodex.set_contact(contact_to_edit)
+	@oage_name = "Edit Contact"
 	erb :edit_contact
 end
 
 
 get "/contacts/delete/:id" do
 	id = params[:id].to_i
-	contact_to_delete = $rolodex.find_contact(id)[0]
+	contact_to_delete = $rolodex.find_contact(id)
 	$rolodex.delete_contact(contact_to_delete)
-	#erb :delete_contact
 	redirect to('/contacts')
 end
 
