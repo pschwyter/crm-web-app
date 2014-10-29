@@ -17,7 +17,7 @@ get "/contacts" do
 end
 
 get "/contacts/new" do
-	params[:page_name] = "Create new contact"
+	params[:page_name] = "Add new contact"
 	erb :new_contact
 end
 

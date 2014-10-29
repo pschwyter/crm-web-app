@@ -16,10 +16,11 @@
 		</div>
 		<div class="form-group">
 			<label>Note</label>
-			<input class="form-control" type="text" name="note" value="<%= $rolodex.selected_contact.note %>">
+			<textarea class="form-control" type="text" name="note"><%= $rolodex.selected_contact.note %></textarea>
+			<!-- <input class="form-control" type="text" name="note" value="<%= $rolodex.selected_contact.note %>"> -->
 		</div>
-		<button type="submit" class="btn btn-sm btn-success">Save Changes</button>
-		<button type="reset" class="btn btn-sm btn-warning">Discard Changes</button>
-		<a href="/contacts">Back</a>
+		<button type="submit" class="btn btn-success btn-sm">Save Changes</button>
+		<button type="reset" class="btn btn-warning btn-sm">Discard Changes</button>
+		<a href="/contacts" class="btn btn-link">Back</a>
 	</form>
 </div>
