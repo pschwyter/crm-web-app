@@ -1,0 +1,22 @@
+.table {
+	table-layout: fixed;
+}
+
+#left-column {
+	width: 50px;
+}
+
+/*#view-option {
+	float: right
+}*/
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.logo {
+	height: 70px;
+	/*margin-top: 28px;*/
+}

@@ -13,7 +13,7 @@ class Rolodex
 	end
 
 	def find_contact(*args)
-		find_contacts(*args).first
+		find_contacts(*args)[0]
 	end
 
 	def find_contacts(attribute, contact_method="id")

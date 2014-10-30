@@ -1,7 +1,13 @@
-<!-- 
-
-<div class="col-md-4">
-	<form class="form-horizontal" role="form" action="/contacts_edit" method="post">
+<div class="row">
+	<div class="col-md-3">
+		<h2><%= $rolodex.selected_contact.first_name %> <%= $rolodex.selected_contact.last_name %></h2>
+	</div>
+	<div class="col-md-2">
+		<img src="/<%= $rolodex.selected_contact.image %>" class="img-thumbnail">
+	</div>
+</div>
+<div class="col-md-5">
+	<form id="view-contact-form" class="form-horizontal" role="form" action="/contacts_edit" method="post">
 		<div class="form-group">
 			<label>First name</label>
 			<input class="form-control" type="text" name="first_name" value="<%= $rolodex.selected_contact.first_name %>">
@@ -17,10 +23,12 @@
 		<div class="form-group">
 			<label>Note</label>
 			<textarea class="form-control" type="text" name="note"><%= $rolodex.selected_contact.note %></textarea>
-			<input class="form-control" type="text" name="note" value="<%= $rolodex.selected_contact.note %>">
 		</div>
 		<button type="submit" class="btn btn-success btn-sm">Save Changes</button>
 		<button type="reset" class="btn btn-warning btn-sm">Discard Changes</button>
 		<a href="/contacts" class="btn btn-link">Back</a>
 	</form>
-</div> -->
+</div>
+<div class="col-md-2">
+	
+</div>
