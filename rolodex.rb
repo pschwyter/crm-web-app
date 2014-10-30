@@ -13,11 +13,15 @@ class Rolodex
 	end
 
 	def find_contact(*args)
-		find_contacts(*args)[0]
+		find_contacts(*args).first
 	end
 
 	def find_contacts(attribute, contact_method="id")
-		@contacts.select { |contact| contact.send(contact_method) == attribute }
+		# contact_variables = ["first_name","last_name","email","note","id"]
+		@contacts.select do |contact|
+			contact.first_name == attribute || contact.last_name == attribute || contact.email == attribute || contact.note == attribute || contact.id == attribute
+		end
+		# @contacts.select { |contact| contact.send(contact_method) == attribute }
 	end
 
 	def set_contact(contact)

@@ -1,24 +1,24 @@
 <table class="table table-hover">
 	<col width="90">
 	<thead>
-		<th>View</th>
+		<th>Actions</th>
 		<th>ID</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Email</th>
 		<th>Note</th>
-		<th>Delete</th>
+		<!-- <th>Delete</th> -->
 	</thead>
 	<tbody>
 		<% $rolodex.contacts.each do |contact| %>
 		<tr>
-			<td><a id="view-option" href="/contacts/view/<%= contact.id %>">View</a></td>
+			<td><a id="view-option" href="/contacts/view/<%= contact.id %>">View</a> / <a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
 			<td><%= contact.id %></td>
 			<td><%= contact.first_name %></td>
 			<td><%= contact.last_name %></td>
 			<td><%= contact.email %></td>
 			<td><%= contact.note %></td>
-			<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
+			<!-- <td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td> -->
 		</tr>
 		<% end %>
 	</tbody>

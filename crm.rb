@@ -7,12 +7,12 @@ $rolodex = Rolodex.new
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
-	params[:page_name] = "Main Menu"
+	# params[:page_name] = "Main Menu"
 	erb :index
 end
 
 get "/contacts" do
-	params[:page_name] = "Contacts"
+	params[:page_name] = "Contacts / <a href=/contacts/new><span class='glyph-add-icon glyphicon glyphicon-plus'></span></a>"
 	erb :contacts
 end
 
@@ -69,9 +69,11 @@ post "/contacts_edit" do
 end
 
 post "/search" do
-	contact_method = params[:contact_method]
+	# contact_method = params[:contact_method]
 	attribute = params[:attribute]
-	contacts_to_display = $rolodex.find_contacts(attribute,contact_method)
+	puts attribute
+	contacts_to_display = $rolodex.find_contacts(attribute)#,contact_method)
+	puts contacts_to_display
 	$rolodex.set_multiple_contacts(contacts_to_display)
 	erb :search_contact
 end

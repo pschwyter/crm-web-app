@@ -3,7 +3,7 @@
 }
 
 #left-column {
-	width: 50px;
+	width: 200px;
 }
 
 /*#view-option {
@@ -19,4 +19,9 @@
 .logo {
 	height: 70px;
 	/*margin-top: 28px;*/
+}
+
+.glyph-add-icon {
+	font-size: 45px;
+	vertical-align: baseline;
 }
