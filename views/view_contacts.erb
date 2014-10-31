@@ -1,34 +1,40 @@
+<div class="container">
+
 <div class="row">
-	<div class="col-md-3">
-		<h2><%= $rolodex.selected_contact.first_name %> <%= $rolodex.selected_contact.last_name %></h2>
-	</div>
-	<div class="col-md-2">
-		<img src="/<%= $rolodex.selected_contact.image %>" class="img-thumbnail">
+	<div class="contact-card col-md-5" style="border: 2px solid">
+		<div class="col-md-6 contact-card-name" style="border: 2px solid">
+			<h2><%= $rolodex.selected_contact.first_name %> <%= $rolodex.selected_contact.last_name %></h2>
+		</div>
+		<div class="col-md-6 contact-image" style="border: 2px solid">
+			<img src="/<%= $rolodex.selected_contact.image %>" class="img-thumbnail">
+		</div>
 	</div>
 </div>
+
+<div class="row">
 <div class="col-md-5">
-	<form class="form-horizontal" role="form" action="/contacts_edit" method="post">
+	<form id="view-contact-form" class="form-horizontal" role="form" action="/contacts_edit" method="post">
 		<div class="form-group">
-			<label>First name</label>
-			<input class="form-control" type="text" name="first_name" value="<%= $rolodex.selected_contact.first_name %>">
+			<label for="view-contact-first-name">First name</label>
+			<input id="view-contact-first-name" class="form-control" type="text" name="first_name" value="<%= $rolodex.selected_contact.first_name %>">
 		</div>
 		<div class="form-group">
-			<label>Last name</label>
-			<input class="form-control" type="text" name="last_name" value="<%= $rolodex.selected_contact.last_name %>">
+			<label for="view-contact-last-name">Last name</label>
+			<input id="view-contact-last-name" class="form-control" type="text" name="last_name" value="<%= $rolodex.selected_contact.last_name %>">
 		</div>
 		<div class="form-group">
-			<label>Email</label>
-			<input class="form-control" type="text" name="email" value="<%= $rolodex.selected_contact.email %>">
+			<label for="view-contact-email">Email</label>
+			<input id="view-contact-email" class="form-control" type="text" name="email" value="<%= $rolodex.selected_contact.email %>">
 		</div>
 		<div class="form-group">
-			<label>Note</label>
-			<textarea class="form-control" type="text" name="note"><%= $rolodex.selected_contact.note %></textarea>
+			<label for="view-contact-note">Note</label>
+			<textarea id="view-contact-note" class="form-control" type="text" name="note"><%= $rolodex.selected_contact.note %></textarea>
 		</div>
 		<button type="submit" class="btn btn-success btn-sm">Save Changes</button>
 		<button type="reset" class="btn btn-warning btn-sm">Discard Changes</button>
 		<a href="/contacts" class="btn btn-link">Back</a>
 	</form>
+</div>	
 </div>
-<div class="col-md-2">
-	
+
 </div>

@@ -3,11 +3,12 @@ require "sinatra/reloader" if development?
 require './contacts.rb'
 require './rolodex.rb'
 
+DataMapper.setup(:default, "sqlite3:database.sqlite3")
+
 $rolodex = Rolodex.new
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
-	# params[:page_name] = "Main Menu"
 	erb :index
 end
 
@@ -22,7 +23,8 @@ get "/contacts/new" do
 end
 
 get "/search" do
-	params[:page_name] = "Search for Contact"
+	params[:page_name] = "Search Result"
+	puts params
 	erb :search_contact
 end
 
@@ -30,29 +32,33 @@ get "/contacts/view/:id" do
 	id = params[:id].to_i
 	puts params
 	contact_to_view = $rolodex.find_contact(id)
-	# params[:page_name] = "#{contact_to_view.first_name} #{contact_to_view.last_name}"
-	$rolodex.set_contact(contact_to_view)
-	# puts $rolodex.selected_contact
-	puts $rolodex.selected_contact.class
-	erb :view_contacts
+	if contact_to_view
+		$rolodex.set_contact(contact_to_view)
+		puts $rolodex.selected_contact.class
+		erb :view_contacts
+	else
+		erb :not_found
+	end
 end
-
-# get "/contacts/edit/:id" do
-# 	id = params[:id].to_i
-# 	puts params
-# 	contact_to_edit = $rolodex.find_contact(id)
-# 	puts contact_to_edit
-# 	$rolodex.set_contact(contact_to_edit)
-# 	@oage_name = "Edit Contact"
-# 	erb :edit_contact
-# end
 
 get "/contacts/delete/:id" do
 	id = params[:id].to_i
 	contact_to_delete = $rolodex.find_contact(id)
-	$rolodex.delete_contact(contact_to_delete)
-	redirect to('/contacts')
+	if contact_to_delete
+		$rolodex.delete_contact(contact_to_delete)
+		redirect to('/contacts')
+	else
+		erb :not_found
+	end
 end
+
+#Maybe Implement this at some point??? Has to be used in a form
+# delete "/contacts/delete/:id" do
+# 	id = params[:id].to_i
+# 	contact_to_delete = $rolodex.find_contact(id)
+# 	$rolodex.delete_contact(contact_to_delete)
+# 	redirect to('/contacts')
+# end
 
 post "/contacts" do
 	puts params
@@ -69,12 +75,12 @@ post "/contacts_edit" do
 end
 
 post "/search" do
-	# contact_method = params[:contact_method]
 	attribute = params[:attribute]
 	puts attribute
-	contacts_to_display = $rolodex.find_contacts(attribute)#,contact_method)
+	contacts_to_display = $rolodex.find_contacts(attribute)
 	puts contacts_to_display
 	$rolodex.set_multiple_contacts(contacts_to_display)
+	params[:page_name] = "Search Result"
 	erb :search_contact
 end
 

@@ -1,5 +1,5 @@
 class Rolodex
-	attr_reader :contacts, :selected_contact, :selected_multiple_contacts
+	attr_reader :contacts, :selected_contact, :selected_multiple_contacts, :selected_contact_for_deletion
 
 	def initialize 
 		@contacts = []
@@ -27,6 +27,14 @@ class Rolodex
 	def set_contact(contact)
 		@selected_contact = contact
 	end
+
+	# def confirm_deletion(contact)
+	# 	if @selected_contact.id == contact.id
+	# 		"<a href='/confirmdelete/contact.id'>Yes</a> / <a href='/contacts'>No</a>"
+	# 	else
+	# 		"<a href='/contacts/delete/<%= contact.id %>Delete</a>"
+	# 	end
+	# end
 
 	def set_multiple_contacts(contacts)
 		@selected_multiple_contacts = contacts

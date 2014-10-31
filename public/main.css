@@ -1,27 +1,83 @@
+body {
+	background-image: url('/background_crm.jpg');
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+/** 
+	Table formatting
+**/
+
 .table {
 	table-layout: fixed;
 }
 
-#left-column {
-	width: 200px;
+.form-group > label {
+	color: #428bca;
 }
 
-/*#view-option {
-	float: right
-}*/
+/** 
+	Table formatting
+**/
+
+.contact-card-name > h2 {
+	color: #428bca;
+}
+
+.contact-card {
+	opacity: 0.8;
+	background-color: white;
+	border-radius: 4px;
+}
+
+
+.contact-image {
+	float: right;
+}
+
+.note-column {
+	width: 250px;
+}
 
 .table {
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.page-header {
+	border-radius: 4px;
+	padding-top: 5px;
+	background: transparent;
+	border-bottom: transparent;
+	color: white;
 }
 
 .logo {
 	height: 70px;
-	/*margin-top: 28px;*/
+}
+
+/*glyphicon styling*/
+
+#home-icon {
+	padding-left: 10px;
 }
 
 .glyph-add-icon {
-	font-size: 45px;
-	vertical-align: baseline;
+	font-size: 25px;
+	vertical-align: center;
+}
+
+/* Setting Background color */
+
+.table,
+.navbar {
+	background-color: white;
+}
+
+.floating-title {
+	color: white;
 }
