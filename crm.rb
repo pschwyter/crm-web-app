@@ -38,11 +38,6 @@ get "/contacts/new" do
 	erb :new_contact
 end
 
-# get "/search" do
-# 	params[:page_name] = "<a href='/contacts'>Contacts</a> / Search Result"
-# 	erb :search_contact
-# end
-
 get "/contacts/:group" do
 	group = params[:group]
 	@contacts_by_group = Contact.all.select { |contact| contact.group == group }
@@ -61,17 +56,6 @@ get "/contacts/view/:id" do
 		erb :not_found
 	end
 end
-
-# get "/contacts/delete/:id" do
-# 	id = params[:id].to_i
-# 	contact_to_delete = Contact.get(id)
-# 	if contact_to_delete
-# 		contact_to_delete.destroy
-# 		redirect to('/contacts')
-# 	else
-# 		erb :not_found
-# 	end
-# end
 
 delete "/contacts/delete/:id" do
 	id = params[:id].to_i
