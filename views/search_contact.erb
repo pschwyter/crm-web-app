@@ -1,14 +1,16 @@
-	<table class="table table-hover">
-		<col width="90">
-		<thead>
-			<th>Action</th>
-			<th>ID</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-			<th class="note-column">Note</th>
-			<!-- <th>Delete</th> -->
-		</thead>
+<% if 2 %>	
+	<table class="table sorttable table-hover">
+		<!-- <col width="90"> -->
+	<thead>
+		<th class="sorttable_nosort">View</th>
+		<th>ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th class="email-column">Email</th>
+		<th>Group</th>
+		<th class="sorttable_nosort note-column">Note</th>
+		<th class="sorttable_nosort">Delete</th>
+	</thead>
 		<tbody>
 			<% @contacts_to_search.each do |contact| %>
 			<tr>
@@ -18,10 +20,14 @@
 				<td><%= contact.last_name %></td>
 				<td><%= contact.email %></td>
 				<td class="note-column"><%= contact.note %></td>
+				<form action="/contacts/<%= contact.group %>" method="post"><td><a type="submit" href="contacts/<%= contact.group %>"><%= contact.group %></td></form>
 				<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
 			</tr>
 			<% end %>
 		</tbody>
 	</table>
+<% else %>
+	<h1>No Contacts</h1>
+<% end %>
 
 <a href="/">Return to Main Menu</a>

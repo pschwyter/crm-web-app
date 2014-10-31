@@ -1,5 +1,5 @@
-<% if @contacts %>
-<table class="table sortable table-hover">
+<% if @contacts_by_group %>
+<table class="table table-hover">
 	<!-- <col width="90"> -->
 	<thead>
 		<th class="sorttable_nosort">View</th>
@@ -7,26 +7,21 @@
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th class="email-column">Email</th>
-		<th>Group</th>
 		<th class="sorttable_nosort note-column">Note</th>
+		<th>Group</th>
 		<th class="sorttable_nosort">Delete</th>
 	</thead>
 	<tbody>
-		<% @contacts.each do |contact| %>
+		<% @contacts_by_group.each do |contact| %>
 		<tr>
 			<td><a id="view-option" href="/contacts/view/<%= contact.id %>">View</a></td>
 			<td><%= contact.id %></td>
 			<td><%= contact.first_name %></td>
 			<td><%= contact.last_name %></td>
 			<td><%= contact.email %></td>
-			<form action="/contacts/<%= contact.group %>" method="post">
-				<td><a type="submit" href="/contacts/<%= contact.group %>"><%= contact.group %></td>
-			</form>
 			<td class="note-column"><%= contact.note %></td>
-			<form action="/contacts/delete/<%= contact.id %>" method="post">
-				<input type="hidden" name="_method" value="delete" />
-				<td><button class="link" type="submit">Delete</a></td>
-			</form>
+			<form action="/contacts/<%= contact.group %>" method="post"><td><a type="submit" href="contacts/<%= contact.group %>"><%= contact.group %></td></form>
+			<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
 		</tr>
 		<% end %>
 	</tbody>

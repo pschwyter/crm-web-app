@@ -13,6 +13,7 @@ class Contact
 	property :last_name, String
 	property :email, String
 	property :note, String
+	property :group, String
 
 end
 
@@ -21,7 +22,9 @@ DataMapper.auto_upgrade!
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
-	erb :index
+	params[:page_name] = "Contacts / <a href=/contacts/new><span class='glyph-add-icon glyphicon glyphicon-plus'></span></a>"
+	@contacts = Contact.all
+	erb :contacts
 end
 
 get "/contacts" do
@@ -31,18 +34,27 @@ get "/contacts" do
 end
 
 get "/contacts/new" do
-	params[:page_name] = "Add new contact"
+	params[:page_name] = "<a href='/contacts'>Contacts</a> / New Contact"
 	erb :new_contact
 end
 
-get "/search" do
-	params[:page_name] = "Search Result"
-	erb :search_contact
+# get "/search" do
+# 	params[:page_name] = "<a href='/contacts'>Contacts</a> / Search Result"
+# 	erb :search_contact
+# end
+
+get "/contacts/:group" do
+	group = params[:group]
+	@contacts_by_group = Contact.all.select { |contact| contact.group == group }
+	params[:page_name] = "<a href='/contacts'>Contacts</a> / #{group}"
+	puts @contacts_by_group
+	erb :contacts_group
 end
 
 get "/contacts/view/:id" do
 	id = params[:id].to_i
 	@contact_to_view = Contact.get(id)
+	params[:page_name] = "<a href='/contacts'>Contacts</a> / <a href='/contacts/#{@contact_to_view.group}'>#{@contact_to_view.group}</a> / #{@contact_to_view.first_name} #{@contact_to_view.last_name}"
 	if @contact_to_view
 		erb :view_contacts
 	else
@@ -50,9 +62,20 @@ get "/contacts/view/:id" do
 	end
 end
 
-get "/contacts/delete/:id" do
+# get "/contacts/delete/:id" do
+# 	id = params[:id].to_i
+# 	contact_to_delete = Contact.get(id)
+# 	if contact_to_delete
+# 		contact_to_delete.destroy
+# 		redirect to('/contacts')
+# 	else
+# 		erb :not_found
+# 	end
+# end
+
+delete "/contacts/delete/:id" do
 	id = params[:id].to_i
-	contact_to_delete = Contacts.get(id)
+	contact_to_delete = Contact.get(id)
 	if contact_to_delete
 		contact_to_delete.destroy
 		redirect to('/contacts')
@@ -61,31 +84,34 @@ get "/contacts/delete/:id" do
 	end
 end
 
-post "/contacts" do
-	contact = Contact.create(
-		:first_name => params[:first_name],
-		:last_name => params[:last_name],
-		:email => params[:email],
-		:note => params[:note]
-	)
-	redirect to('/contacts')
-end
-
-post "/contacts/:id/edit" do
+put "/contacts/:id/edit" do
 	id = params[:id].to_i
 	contact_to_edit = Contact.get(id)
 	contact_to_edit.update(:first_name => params[:first_name],
 		:last_name => params[:last_name],
 		:email => params[:email],
-		:note => params[:note]
+		:note => params[:note],
+		:group => params[:group]
 		)
 	redirect to('/contacts')
 end
 
+post "/contacts" do
+	contact = Contact.create(
+		:first_name => params[:first_name],
+		:last_name => params[:last_name],
+		:email => params[:email],
+		:note => params[:note],
+		:group => params[:group]
+	)
+	redirect to('/contacts')
+end
+
+
 post "/search" do
 	attribute = params[:attribute]
-	@contacts_to_search = Contact.all.select { |contact| contact.first_name == attribute || contact.last_name == attribute || contact.email == attribute || contact.note == attribute }
-	params[:page_name] = "Search Result"
+	@contacts_to_search = Contact.all.select { |contact| contact.group == attribute || contact.first_name == attribute || contact.last_name == attribute || contact.email == attribute || contact.note == attribute }
+	params[:page_name] = "<a href='/contacts'>Contacts</a> / #{attribute}"
 	if @contacts_to_search
 		erb :search_contact
 	else

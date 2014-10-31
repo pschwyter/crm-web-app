@@ -1,10 +1,10 @@
 <div class="col-md-4">
 	<form class="form-horizontal" action="/contacts" method="post">
-		<div class="form-group">
-		<label>First name</label>
-		<input class="form-control" type="text" name="first_name">
+<!-- 		<div class="form-group">
+		<label for="new-contact-firstname">First name</label>
+		<input id="new-contact-firstname" class="form-control" type="text" name="first_name">
 		</div>
-		<div class="form-group">
+		<div for="new-contact-lastname">class="form-group">
 		<label>Last name</label>
 		<input class="form-control" type="text" name="last_name">
 		</div>
@@ -13,13 +13,47 @@
 		<input class="form-control" type="text" name="email">
 		</div>
 		<div class="form-group">
-		<label>Note</label>
-		<textarea class="form-control" type="text" name="note"></textarea>
+			<label>Note</label>
+			<textarea class="form-control" type="text" name="note"></textarea>
+		</div> -->
+		<div class="form-group">
+			<label for="view-contact-first-name">First name</label>
+			<input id="view-contact-first-name" class="form-control" type="text" name="first_name">
 		</div>
+		<div class="form-group">
+			<label for="view-contact-last-name">Last name</label>
+			<input id="view-contact-last-name" class="form-control" type="text" name="last_name">
+		</div>
+		<div class="form-group">
+			<label for="view-contact-email">Email</label>
+			<input id="view-contact-email" class="form-control" type="text" name="email">
+		</div>
+		<div class="form-group">
+			<label for="view-contact-note">Note</label>
+			<textarea id="view-contact-note" class="form-control" type="text" name="note"></textarea>
+		</div>
+		<div class="form-group">
+			<label>Group</label>
+			<select class="form-control" type="text" name="group">
+				<option>Other</option>
+				<option>Family</option>
+				<option>Friends</option>
+				<option>Coworkers</option>
+			</select>
+		</div>
+<!-- 		<div class="form-group">
+			<label>Group</label>
+			<select class="form-control" type="text" name="group">
+				<option>Other</option>
+				<option>Family</option>
+				<option>Friends</option>
+				<option>Coworkers</option>
+			</select>
+		</div> -->
 		<div>
-		<input class="btn btn-success btn-sm" type="submit" name="Create">
-		<input class="btn btn-warning btn-sm" type="reset" name="Reset">
-		<a href="/contacts" class="btn btn-link">Back</a>
+			<input class="btn btn-success btn-sm" type="submit" name="Create">
+			<input class="btn btn-warning btn-sm" type="reset" name="Reset">
+			<a href="/contacts" class="btn btn-link">Back</a>
 		</div>
 	</form>
 </div>

@@ -5,40 +5,28 @@ body {
 	background-size: cover;
 }
 
+#container {
+	min-height: 100%
+}
 
-/** 
+/*.container {
+	max-width: 960px;
+}*/
+
+footer {
+	position: absolute;
+	bottom: 0;
+}
+
+/*****************************
+
 	Table formatting
-**/
+
+******************************/
 
 .table {
 	table-layout: fixed;
-}
-
-.form-group > label {
-	color: #428bca;
-}
-
-/** 
-	Table formatting
-**/
-
-.contact-card-name > h2 {
-	color: #428bca;
-}
-
-.contact-card {
 	opacity: 0.8;
-	background-color: white;
-	border-radius: 4px;
-}
-
-
-.contact-image {
-	float: right;
-}
-
-.note-column {
-	width: 250px;
 }
 
 .table {
@@ -47,6 +35,48 @@ body {
   margin-bottom: 20px;
   border-radius: 4px;
 }
+
+.form-group > label {
+	color: #428bca;
+}
+
+.note-column {
+	width: 250px;
+}
+
+.email-column {
+	width: 200px;
+}
+
+.name-column {
+	width: 100px;
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
+}
+
+/****************************
+
+	View contact formatting
+
+*****************************/
+
+.contact-card-name > h2 {
+	color: #428bca;
+}
+
+/*.contact-card {
+	background-color: white;
+	border-radius: 4px;
+}*/
+
+
+.contact-image {
+	float: right;
+}
+
+
 
 .page-header {
 	border-radius: 4px;
@@ -60,7 +90,11 @@ body {
 	height: 70px;
 }
 
-/*glyphicon styling*/
+/*************************
+
+	glyphicon styling
+
+*************************/
 
 #home-icon {
 	padding-left: 10px;
@@ -71,6 +105,25 @@ body {
 	vertical-align: center;
 }
 
+/*************************
+
+	navbar
+
+*************************/
+
+.navbar {
+	opacity: 0.8;
+}
+
+ul > li {
+	padding-left: 20px;
+}
+
+.search-bar {
+	padding-right: 20px;
+	float: right;
+}
+
 /* Setting Background color */
 
 .table,
@@ -78,6 +131,6 @@ body {
 	background-color: white;
 }
 
-.floating-title {
+.page-subtitle {
 	color: white;
 }
