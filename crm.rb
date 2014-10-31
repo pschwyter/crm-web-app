@@ -1,9 +1,37 @@
 require 'sinatra'
 require "sinatra/reloader" if development?
+require 'data_mapper'
 require './contacts.rb'
 require './rolodex.rb'
 
 DataMapper.setup(:default, "sqlite3:database.sqlite3")
+
+class Contact
+	include DataMapper::Resource
+
+	property :id, Serial
+	property :first_name, String
+	property :last_name, String
+	property :email, String
+	property :note, String
+
+	# attr_accessor :id, :first_name, :last_name, :email, :note#, :image
+
+	# def initialize(first_name, last_name, email, note)
+	# 	@first_name = first_name
+	# 	@last_name = last_name
+	# 	@email = email
+	# 	@note = note
+	# 	#@image = "default_profile_img.jpeg"
+	# end
+
+	# def to_s
+	# 	"ID: #{@id}, Contact: #{@first_name} #{@last_name}, <#{@email}>\nNote: #{@note}"
+	# end
+end
+
+DataMapper.finalize
+DataMapper.auto_upgrade!
 
 $rolodex = Rolodex.new
 
@@ -31,10 +59,10 @@ end
 get "/contacts/view/:id" do
 	id = params[:id].to_i
 	puts params
-	contact_to_view = $rolodex.find_contact(id)
-	if contact_to_view
-		$rolodex.set_contact(contact_to_view)
-		puts $rolodex.selected_contact.class
+	@contact_to_view = $rolodex.find_contact(id)
+	if @contact_to_view
+		# $rolodex.set_contact(contact_to_view)
+		# puts $rolodex.selected_contact.class
 		erb :view_contacts
 	else
 		erb :not_found

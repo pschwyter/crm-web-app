@@ -3,7 +3,8 @@
 <div class="row">
 	<div class="contact-card col-md-5" style="border: 2px solid">
 		<div class="col-md-6 contact-card-name" style="border: 2px solid">
-			<h2><%= $rolodex.selected_contact.first_name %> <%= $rolodex.selected_contact.last_name %></h2>
+			<!-- <h2><%= $rolodex.selected_contact.first_name %> <%= $rolodex.selected_contact.last_name %></h2> -->
+			<h2><%= @contact_to_view.first_name %> <%= @contact_to_view.last_name %></h2>
 		</div>
 		<div class="col-md-6 contact-image" style="border: 2px solid">
 			<img src="/<%= $rolodex.selected_contact.image %>" class="img-thumbnail">
