@@ -2,7 +2,6 @@ require 'sinatra'
 require "sinatra/reloader" if development?
 require 'data_mapper'
 require './contacts.rb'
-require './rolodex.rb'
 
 DataMapper.setup(:default, "sqlite3:database.sqlite3")
 
@@ -15,25 +14,10 @@ class Contact
 	property :email, String
 	property :note, String
 
-	# attr_accessor :id, :first_name, :last_name, :email, :note#, :image
-
-	# def initialize(first_name, last_name, email, note)
-	# 	@first_name = first_name
-	# 	@last_name = last_name
-	# 	@email = email
-	# 	@note = note
-	# 	#@image = "default_profile_img.jpeg"
-	# end
-
-	# def to_s
-	# 	"ID: #{@id}, Contact: #{@first_name} #{@last_name}, <#{@email}>\nNote: #{@note}"
-	# end
 end
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
-
-$rolodex = Rolodex.new
 
 get "/" do
 	@crm_app_name = "Bitmaker CRM"
@@ -42,6 +26,7 @@ end
 
 get "/contacts" do
 	params[:page_name] = "Contacts / <a href=/contacts/new><span class='glyph-add-icon glyphicon glyphicon-plus'></span></a>"
+	@contacts = Contact.all
 	erb :contacts
 end
 
@@ -52,17 +37,13 @@ end
 
 get "/search" do
 	params[:page_name] = "Search Result"
-	puts params
 	erb :search_contact
 end
 
 get "/contacts/view/:id" do
 	id = params[:id].to_i
-	puts params
-	@contact_to_view = $rolodex.find_contact(id)
+	@contact_to_view = Contact.get(id)
 	if @contact_to_view
-		# $rolodex.set_contact(contact_to_view)
-		# puts $rolodex.selected_contact.class
 		erb :view_contacts
 	else
 		erb :not_found
@@ -71,59 +52,45 @@ end
 
 get "/contacts/delete/:id" do
 	id = params[:id].to_i
-	contact_to_delete = $rolodex.find_contact(id)
+	contact_to_delete = Contacts.get(id)
 	if contact_to_delete
-		$rolodex.delete_contact(contact_to_delete)
+		contact_to_delete.destroy
 		redirect to('/contacts')
 	else
 		erb :not_found
 	end
 end
 
-#Maybe Implement this at some point??? Has to be used in a form
-# delete "/contacts/delete/:id" do
-# 	id = params[:id].to_i
-# 	contact_to_delete = $rolodex.find_contact(id)
-# 	$rolodex.delete_contact(contact_to_delete)
-# 	redirect to('/contacts')
-# end
-
 post "/contacts" do
-	puts params
-	new_contact = Contact.new(params[:first_name], params[:last_name], params[:email], params[:note])
-	$rolodex.add_contact(new_contact)
+	contact = Contact.create(
+		:first_name => params[:first_name],
+		:last_name => params[:last_name],
+		:email => params[:email],
+		:note => params[:note]
+	)
 	redirect to('/contacts')
 end
 
-post "/contacts_edit" do
-	puts params
-	puts $rolodex.selected_contact
-	$rolodex.edit_contact(params[:first_name],params[:last_name],params[:email],params[:note])
+post "/contacts/:id/edit" do
+	id = params[:id].to_i
+	contact_to_edit = Contact.get(id)
+	contact_to_edit.update(:first_name => params[:first_name],
+		:last_name => params[:last_name],
+		:email => params[:email],
+		:note => params[:note]
+		)
 	redirect to('/contacts')
 end
 
 post "/search" do
 	attribute = params[:attribute]
-	puts attribute
-	contacts_to_display = $rolodex.find_contacts(attribute)
-	puts contacts_to_display
-	$rolodex.set_multiple_contacts(contacts_to_display)
+	@contacts_to_search = Contact.all.select { |contact| contact.first_name == attribute || contact.last_name == attribute || contact.email == attribute || contact.note == attribute }
 	params[:page_name] = "Search Result"
-	erb :search_contact
+	if @contacts_to_search
+		erb :search_contact
+	else
+		erb :not_found
+	end
 end
 
-#Only for debugging
-post "/contacts_generate" do
-	new_contact = Contact.new("Phil", "Schwyter", "pschwyter90@gmail.com", "student")
-	$rolodex.add_contact(new_contact)
-	new_contact = Contact.new("Bob", "Smith", "bob@gmail.com", "student")
-	$rolodex.add_contact(new_contact)
-	new_contact = Contact.new("Jerry", "Jackson", "jerry@gmail.com", "student")
-	$rolodex.add_contact(new_contact)
-	new_contact = Contact.new("Frank", "Fenster", "frank@gmail.com", "student")
-	$rolodex.add_contact(new_contact)
-	new_contact = Contact.new("Laura", "Lincoln", "laura@gmail.com", "student")
-	$rolodex.add_contact(new_contact)
-	redirect to('/contacts')
-end
 

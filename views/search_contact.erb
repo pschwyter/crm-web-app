@@ -10,15 +10,15 @@
 			<!-- <th>Delete</th> -->
 		</thead>
 		<tbody>
-			<% $rolodex.selected_multiple_contacts.each do |contact| %>
+			<% @contacts_to_search.each do |contact| %>
 			<tr>
-				<td><a href="/contacts/view/<%= contact.id %>">View</a> / <a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
+				<td><a href="/contacts/view/<%= contact.id %>">View</a></td>
 				<td><%= contact.id %></td>
 				<td><%= contact.first_name %></td>
 				<td><%= contact.last_name %></td>
 				<td><%= contact.email %></td>
 				<td class="note-column"><%= contact.note %></td>
-				<!-- <td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td> -->
+				<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
 			</tr>
 			<% end %>
 		</tbody>
