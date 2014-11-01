@@ -1,7 +1,6 @@
 require 'sinatra'
 require "sinatra/reloader" if development?
 require 'data_mapper'
-require './contacts.rb'
 
 DataMapper.setup(:default, "sqlite3:database.sqlite3")
 
