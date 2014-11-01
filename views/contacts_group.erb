@@ -14,14 +14,17 @@
 	<tbody>
 		<% @contacts_by_group.each do |contact| %>
 		<tr>
-			<td><a id="view-option" href="/contacts/view/<%= contact.id %>">View</a></td>
+			<td><a class="btn btn-success" id="view-option" href="/contacts/view/<%= contact.id %>">View</a></td>
 			<td><%= contact.id %></td>
 			<td><%= contact.first_name %></td>
 			<td><%= contact.last_name %></td>
 			<td><%= contact.email %></td>
-			<td class="note-column"><%= contact.note %></td>
 			<form action="/contacts/<%= contact.group %>" method="post"><td><a type="submit" href="contacts/<%= contact.group %>"><%= contact.group %></td></form>
-			<td><a href="/contacts/delete/<%= contact.id %>">Delete</a></td>
+			<td class="note-column"><%= contact.note %></td>
+			<form action="/contacts/delete/<%= contact.id %>" method="post">
+				<input type="hidden" name="_method" value="delete" />
+				<td><button class="btn btn-danger" type="submit">Delete</button></td>
+			</form>		
 		</tr>
 		<% end %>
 	</tbody>
