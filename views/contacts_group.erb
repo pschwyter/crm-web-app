@@ -19,7 +19,7 @@
 			<td><%= contact.first_name %></td>
 			<td><%= contact.last_name %></td>
 			<td><%= contact.email %></td>
-			<form action="/contacts/<%= contact.group %>" method="post"><td><a type="submit" href="contacts/<%= contact.group %>"><%= contact.group %></td></form>
+			<form action="/contacts/<%= contact.group %>" method="post"><td><a type="submit" href="/contacts/<%= contact.group %>"><%= contact.group %></td></form>
 			<td class="note-column"><%= contact.note %></td>
 			<form action="/contacts/delete/<%= contact.id %>" method="post">
 				<input type="hidden" name="_method" value="delete" />
